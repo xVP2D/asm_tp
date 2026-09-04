@@ -1,4 +1,9 @@
-.text
+section .text
+  global _start
 
-section _start
+_start:
 
+ mov rdi, 0
+ mov rax, 60
+ syscall
+  
