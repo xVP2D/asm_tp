@@ -1,16 +1,19 @@
 section .data
  msg db "1337", 0ah
- buf db "  "
 
 section .text
  global _start
 
 _start:
-
  mov rax, [rsp]
  cmp rax, 2
+ jl fail
+
  mov rsi, [rsp + 16] 
+
  cmp byte rsi, '42'
+ jl fail
+
  mov rax, 1
  mov rdi, 1
  mov rsi, msg
