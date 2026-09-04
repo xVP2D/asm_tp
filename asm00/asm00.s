@@ -3,7 +3,8 @@ section .text
 
 _start:
 
- mov rdi, 0
  mov rax, 60
+ mov rdi, 0
+
  syscall
   
