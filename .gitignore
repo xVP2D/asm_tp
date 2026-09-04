@@ -1,4 +1,5 @@
-*.txt
-intro
-*.o
 *
+!*/
+!*.s
+!.gitignore
+!AUTHORS.md
