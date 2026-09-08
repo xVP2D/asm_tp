@@ -1,32 +1,41 @@
 section .data
- buf db "  "
-
+ buf: times 32 db 0
 
 section .text
  global _start
 
 _start:
-
  mov rax, 0
  mov rdi, 0
  mov rsi, buf
- mov rdx, 2
+ mov rdx, 32
  syscall
 
- cmp byte [buf], '9'
- ja fail
- cmp byte [buf], '0'
- jb fail
+ mov rcx, rax    
+ mov rdi, buf      
 
- test byte [buf], 1
+scan:
+ cmp rcx, 0
+ je fail
+ mov al, [rdi]
+ cmp al, '0'
+ jb next
+ cmp al, '9'
+ ja next
+ jmp test
+
+next:
+ inc rdi
+ dec rcx
+ jmp scan
+
+test:
+ test al, 1
  jz pair
- jnz impair
 
-
-
-fail:
+impair:
  mov rax, 60
- mov rdi, 2
+ mov rdi, 1
  syscall
 
 pair:
@@ -34,7 +43,7 @@ pair:
  mov rdi, 0
  syscall
 
-impair: 
+fail:
  mov rax, 60
- mov rdi, 1
+ mov rdi, 2
  syscall
