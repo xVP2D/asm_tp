@@ -1,6 +1,6 @@
 section .data
  msg db "1337", 0ah
- buf db "  "
+ buf db "   "
 
 section .text
  global _start
@@ -9,9 +9,12 @@ _start:
  mov rax, 0
  mov rdi, 0
  mov rsi, buf
- mov rdx, 2
+ mov rdx, 3
  syscall
 
+
+ cmp byte [buf +2], 0ah
+ jg fail  
 
  cmp byte [buf], '4'
  jne fail
