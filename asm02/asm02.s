@@ -14,7 +14,7 @@ _start:
 
 
  cmp rax, 2
-jne check
+ jne check
 
 
  cmp byte [buf], '4'
