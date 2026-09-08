@@ -13,16 +13,37 @@ _start:
  syscall
 
 
- cmp rax, 3
- jg fail  
+ cmp rax, 2
+jne check
 
 
  cmp byte [buf], '4'
  jne fail
  cmp byte [buf+1], '2'
  jne fail
+ je good
+
+ mov rax, 1
+ mov rdi, 1
+ mov rsi, msg
+ mov rdx, 5
+ syscall
+
+ mov rax, 60
+ mov rdi, 0
+ syscall
 
 
+check:
+ cmp byte [buf +2], 0ah
+ jne fail
+ 
+ cmp rax, 3
+ jne fail
+ je good
+
+
+good:
  mov rax, 1
  mov rdi, 1
  mov rsi, msg
