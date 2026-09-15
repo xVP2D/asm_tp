@@ -1,6 +1,5 @@
 section .bss
- result resb 2
-
+ result resb 3
 section .text
  global _start
 
@@ -14,15 +13,23 @@ _start:
  sub rbx, '0'
 
  add rax, rbx
- add rax, '0'
 
+ mov rcx, 10
+ xor rdx, rdx
+ div rcx
+
+ add al, '0'
+ add dl, '0'
  mov [result], al
+ mov [result+1], dl
+ mov byte [result+2], 10
+
  mov rax, 1
  mov rdi, 1
  mov rsi, result
- mov rdx, 2
+ mov rdx, 3
  syscall
 
- mov rax, 60 
+ mov rax, 60
  xor rdi, rdi
  syscall
