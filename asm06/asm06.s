@@ -5,15 +5,16 @@ section .text
 
 _start:
  mov rsi, [rsp+16]
- movzx rax, byte [rsi]
- sub rax, '0'
+ call parse
+ mov r12, rax
 
  mov rsi, [rsp+24]
- movzx rbx, byte [rsi]
- sub rbx, '0'
+ call parse
+ mov r13, rax
 
- add rax, rbx
+ add r12, r13
 
+ mov rax, r12
  mov rcx, 10
  xor rdx, rdx
  div rcx
@@ -33,3 +34,20 @@ _start:
  mov rax, 60
  xor rdi, rdi
  syscall
+
+parse:
+ xor rax, rax
+
+bc:
+ movzx rcx, byte [rsi]
+ test rcx, rcx
+ je yes
+ imul rax, rax, 10
+ sub rcx, '0'
+ add rax, rcx
+ inc rsi
+ jmp bc
+
+
+yes:
+ ret
